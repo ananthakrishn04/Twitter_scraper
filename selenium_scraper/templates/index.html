@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Trends</title>
+</head>
+<body>
+    <h1>Twitter Trends</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Run Script</button>
+    </form>
+    {% if result %}
+    <h2>These are the most happening topics as on {{ datetime }}</h2>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Topic</th>
+                <th>Number of Posts</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trend in result %}
+            <tr>
+                <td>{{ trend.category }}</td>
+                <td>{{ trend.topic }}</td>
+                <td>{{ trend.posts }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+    <p>The IP address used for this query was {{ ip_address }}.</p><br>
+    {% endif %}
+</body>
+</html>
