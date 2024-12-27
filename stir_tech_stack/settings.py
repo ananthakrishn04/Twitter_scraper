@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-h^#6$=i)%r5b@$4wi%prc!d$%t2&gm+$#*2yxq*z0o90y$s2+7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['twitter-scraper-us90.onrender.com']
+ALLOWED_HOSTS = ['twitter-scraper-us90.onrender.com','127.0.0.1']
 
 #Dummy acount credentials
 TWITTER_EMAIL = "RamisNoone1234@gmail.com"
