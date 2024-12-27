@@ -65,6 +65,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+from webdriver_manager.chrome import ChromeDriverManager
 from django.conf import settings
 import time
 import os
@@ -95,7 +96,7 @@ class TwitterTrendsScraper:
         chrome_options.add_argument("no-sandbox")  # Bypass OS security model
         chrome_options.add_argument('disable-blink-features=AutomationControlled')
 
-        self.chromeDriver = webdriver.Chrome(options=chrome_options)
+        self.chromeDriver = webdriver.Chrome(ChromeDriverManager().install(),options=chrome_options)
         # self.chromeDriver = webdriver.Chrome()
 
         # self.chromeDriver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'})
