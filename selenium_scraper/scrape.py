@@ -89,11 +89,14 @@ class TwitterTrendsScraper:
         
 
         chrome_options = webdriver.ChromeOptions() 
-        chrome_options.add_extension(proxy_extension)
-        chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+        # chrome_options.add_extension(proxy_extension)
 
-        # self.chromeDriver = webdriver.Chrome(options=chrome_options)
-        self.chromeDriver = webdriver.Chrome()
+        chrome_options.add_argument("headless")  # Run in headless mode
+        chrome_options.add_argument("no-sandbox")  # Bypass OS security model
+        chrome_options.add_argument('disable-blink-features=AutomationControlled')
+
+        self.chromeDriver = webdriver.Chrome(options=chrome_options)
+        # self.chromeDriver = webdriver.Chrome()
 
         # self.chromeDriver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'})
         # self.chromeDriver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
@@ -192,17 +195,20 @@ class TwitterTrendsScraper:
             buttons[-3].click()
             time.sleep(2)
 
-            profilename_field = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, 'input[name="text"]'))
-            )
-            profilename_field.send_keys(username)
+            try:
+                profilename_field = WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, 'input[name="text"]'))
+                )
+                profilename_field.send_keys(username)
 
-            login_button = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, '[data-testid="ocfEnterTextNextButton"]'))
-            )
+                login_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, '[data-testid="ocfEnterTextNextButton"]'))
+                )
 
-            login_button.click()
-            time.sleep(2)
+                login_button.click()
+                time.sleep(2)
+            except:
+                pass
             
             # Fill in password
             password_field = WebDriverWait(driver, 10).until(
