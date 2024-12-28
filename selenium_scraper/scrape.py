@@ -93,12 +93,13 @@ class TwitterTrendsScraper:
         chrome_options = webdriver.ChromeOptions() 
         # chrome_options.add_extension(proxy_extension)
 
+        chrome_options.binary_location = "/usr/bin/google-chrome"
         chrome_options.add_argument("headless")  # Run in headless mode
         chrome_options.add_argument("no-sandbox")  # Bypass OS security model
         chrome_options.add_argument('disable-blink-features=AutomationControlled')
 
         self.chromeDriver = webdriver.Chrome(
-            service=Service(ChromeDriverManager().install()),
+            service=Service("/usr/local/bin/chromedriver"),
             options=chrome_options
         )
         # self.chromeDriver = webdriver.Chrome()

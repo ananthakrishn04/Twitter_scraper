@@ -36,6 +36,19 @@
 
 
     <p>The IP address used for this query was {{ ip_address }}.</p><br>
+
+
+    <h2>Data from Database as json</h2>
+    <pre>
+        {{data|json_script:"trends_data"}}
+    </pre>
     {% endif %}
+
+
+    <script>
+        // Display the data as pretty JSON
+        const data = JSON.parse(document.getElementById('trends_data').textContent);
+        document.querySelector('pre').textContent = JSON.stringify(data, null, 4);
+    </script>
 </body>
 </html>

@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse
+from django.core.serializers import serialize
 from .scrape import TwitterTrendsScraper
 from .models import Trend
 import datetime
 import uuid
-
+import json
 
 def index(request):
     if request.method == "POST":
@@ -30,7 +31,10 @@ def index(request):
 
             record.save()
 
-            return render(request, "index.html", {"result": trending_topics , "datetime" : timestamp,"ip_address":ip})
+            queryset = Trend.objects.all()[:5]  # Replace `Trend` with your model
+            serialized_data = json.loads(serialize('json', queryset)) 
+
+            return render(request, "index.html", {"result": trending_topics[:5] , "datetime" : timestamp,"ip_address":ip , 'data' : serialized_data })
         
         except Exception as e:
             return HttpResponse(e)
