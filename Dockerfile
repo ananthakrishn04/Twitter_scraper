@@ -10,6 +10,3 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-
-# Add the command to run your application
-CMD gunicorn stir_tech_stack.wsgi:application --bind 0.0.0.0:$PORT
